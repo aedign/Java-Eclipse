@@ -6,13 +6,13 @@ class DoublyLinkedList {
 	
 class Node{
 		
-		int id;
+		int data;
 		Node next;
 		Node prev;
 		
-		Node (int id){
+		Node (int data){
 			
-			this.id = id;
+			this.data = data;
 			this.next = null;
 			this.prev = null;
 		}
@@ -37,124 +37,173 @@ class Node{
 	}
 
 	/**
-	 * adds element at the front of the linked list
-	 */
-	public void prepend(int id, String name) {
-		Node tmp = new Node(id);
-		if(head != null ) {head.prev = tmp;}
-		head = tmp;
-		if(tail == null) { tail = tmp;}
-		size++;
-		System.out.println("prepending id: "+ id + " name: " + name);
-	}
-
-	/**
 	 * adds element at the end of the linked list
 	 */
-	public void append(int id, String name) {
+	public void add(int data) { // Big O -> O(1)
 
-		Node tmp = new Node(id);
-		if(tail != null) {tail.next = tmp;}
-		tail = tmp;
-		if(head == null) { head = tmp;}
-		size++;
-		System.out.println("appending id: "+ id + " name: " + name);
+		Node temp = new Node(data);
+		if(tail != null) { // if there is a tail, it adds after the tail.
+			tail.next = temp;
+			temp.prev = tail;
+			}
+		tail = temp; // the added node is the new tail, regardless of 
+					//whether the list was empty or not
+		if(head == null) { // if there is no head, the new node is the new head as well
+			head = temp;
+			}
+		size++; 
 	}
 
 	/**
 	 * displays all nodes of the linked list
 	 */
-	public void displayAllNodes(){
+	public void printForward(){
+		
+		if(isEmpty())
+			return;
+		
 		Node theNode = head;
-		// Start at the reference stored in head and
-		// keep getting the references stored in next for
-		// every Link until next returns null
-
-		System.out.println("Displaying all nodes ..... ");
 
 		while(theNode != null){
-		
-			System.out.println("Previous node: " + theNode.prev + "\t Next node: " + theNode.next);
+			System.out.print(theNode.data + " ");
 			theNode = theNode.next;
-			System.out.println();
 		}
+		System.out.println();
 
 	}
-
-
-	/**
-	 * this method walks forward through the linked list
-	 */
-	public void iterateForward(){
-
-		System.out.println("Iterating forward.....");
-		Node tmp = head;
-		while(tmp != null){
-			//            System.out.println(tmp.element);
-			System.out.println("iterateForward id: "+ tmp.id);
-			tmp = tmp.next;
-		}
-	}
-
-	/**
-	 * this method walks backward through the linked list
-	 */
-	public void iterateBackward(){
-
-		System.out.println("Iterating backword.....");
-		Node tmp = tail;
-		while(tmp != null){
-			//            System.out.println(tmp.element);
-			System.out.println("iterateBackward id: "+ tmp.id );
-			tmp = tmp.prev;
-		}
-	}
-
-	/**
-	 * this method removes element from the start of the linked list
-	 */
-	public void removeFirst() {
-		
-		Node tmp = head;
-		head = head.next;
-		head.prev = null;
-		size--;
-		System.out.println("removeFirst id: "+ tmp.id );
-
-	}
-
-	/**
-	 * this method removes element from the end of the linked list
-	 * @return
-	 */
-	public void removeLast() {
 	
-		Node tmp = tail;
-		tail = tail.prev;
-		tail.next = null;
-		size--;
-		System.out.println("removeFirst id: "+ tmp.id );
+	public void printBackwards(){
+		
+		if(isEmpty())
+			return;
+		
+		Node theNode = tail;
+
+		while(theNode != null){
+			System.out.print(theNode.data + " ");
+			theNode = theNode.prev;
+		}
+		System.out.println();
 
 	}
 
 
+	public void remove(int data) { // Big O -> O(n)
+	
+		Node temp = head;
+		
+		if(head.data == data) { // deletes the node if it is in the head
+			head = head.next;
+			head.prev = null;
+			return;
+		}
+		
+		while(temp != null){ // finds the node and removes if its 
+										//in the middle or end of the list
+			if(temp.next.data == data) {
+				temp.next = temp.next.next;
+				temp.next.prev = temp;
+				break;
+			}
+			temp = temp.next;
+		}
+	}
+	
+	void insert(int data, int position) { // Big O -> O(n)
+	    
+	    Node newNode = new Node(data); 
+	    
+	    //Empty List - Returned newly created node or null
+	    if (head==null){
+	    	head = newNode;
+	    	return;
+	    	}
+	    
+	    //Inserting a Node before the head of the List
+	    if (position == 0){
+	    	newNode.next = head;
+	    	head.prev = newNode;
+	    	head = newNode;
+	    	return;
+	    	}    
+
+
+	    Node toIterate =  new Node(data);
+	    toIterate = head; // A node equal to the head is created in order to find the new 
+	    					//position without changing the head
+	    
+	    for (int currPosition = 0; currPosition < position -1 && toIterate.next != null; toIterate = toIterate.next){       
+	        currPosition++;       
+	    }
+
+	    //Inserting a Node in-between a List or at the end of of a List
+	    newNode.next = toIterate.next;
+	    toIterate.next.prev = newNode;
+	    newNode.prev = toIterate;
+	    toIterate.next = newNode;
+	        
+	}
+	
+	public void search(int target){ // Big O -> O(n)
+		
+		int position = 0;
+		for(Node temp = head; temp != null; temp = temp.next){ // loops through list to find the node
+			if(temp.data == target){
+				System.out.println(target + " was found at position " + position);
+				return;
+			}
+			position++;
+		}
+		System.out.println(target + " was not found"); // printed if node was not found
+}
+	
+	public void reverse() {
+		
+		Node prev = null;
+		Node current = head;
+		Node next = null;
+		
+		while(current != null) {
+			
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+		
+		head = prev;
+		printForward();
+	}
 
 	public static void main(String[] args){
 
 		DoublyLinkedList dll = new DoublyLinkedList();
-		System.out.println(dll.size());
 		
-		dll.append(1, "A");
-		dll.append(2, "B");
-		dll.prepend(3, "C");
-		dll.append(4, "D");
-		dll.append(5, "E");
+		dll.add(1);
+		dll.add(2);
+		dll.add(3);
+		dll.add(4);
+		dll.add(5);
+		dll.printBackwards();
+		dll.insert(9, 3);
+		dll.printBackwards();
+		
+		dll.printForward();
 
-		dll.displayAllNodes();
+		dll.remove(2);
+		
+		
+		dll.printForward();
+		
+		dll.search(99);
+		dll.search(5);
+		
+		dll.remove(1);
+		dll.size();
+		dll.printForward();
+		
+		dll.reverse();
 
-		dll.iterateForward();
-		dll.removeFirst();
-		dll.removeLast();
-		dll.iterateBackward();
+
 	}
 }

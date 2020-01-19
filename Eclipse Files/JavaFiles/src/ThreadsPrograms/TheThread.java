@@ -1,8 +1,6 @@
 package ThreadsPrograms;
 
 
-import java.util.Random;
-
 public class TheThread extends Thread{
 	
 	public void run() {

@@ -5,49 +5,28 @@ public class InsertionSort {
 
 	public static void main(String[] args) {
 		
+		int [] array2 = new int[] {1,7,2,3,33,8,9,0,12,44};
 		
-		int [] array = new int [5];
-		
-		for (int count = 0; count < array.length; count++ ) {
+		for (int count = 0; count < array2.length; count++ ) {
 			
-			array[count] = (int) (Math.random() * 10 + 0);
-			
-		}
-		
-for (int count = 0; count < array.length; count++ ) {
-			
-			System.out.println(InsertionSort(array)[count]);
+			System.out.println(insertionSort(array2)[count]);
 			
 		}
-
-int gg = 100-(40+(200/(10-5)*2)/4)+50;
-
-System.out.println(gg);
-		
-
 	}
 	
-public static int [] InsertionSort (int [] array) {
-		
+	public static int [] insertionSort (int [] array) { // Big O -> O(n^2)
 		
 		for (int count = 1; count < array.length; count++) {
 			
-			int key = array[count];
-			int position = count;
+			int temp = array[count]; // stores value to be compared
+			int index = count; // index of the temp value in the array
 			
-			while (position > 0 && key < array[position-1]) {
-				
-				array[position] = array[position-1];
-				position--;
-
+			while (index > 0 && temp < array[index-1]) { // if index is greater than zero and a
+				array[index] = array[index-1];			 //value located before the temp is 
+				index--;								 //less than the value of temp, then values are swapped
 			}
-			
-			array[position] = key;
-		
-			
-			
+			array[index] = temp;
 		}
-
 		return array;
 	}
 

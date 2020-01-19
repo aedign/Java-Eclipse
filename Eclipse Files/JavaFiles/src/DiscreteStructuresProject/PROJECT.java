@@ -101,7 +101,7 @@ public class PROJECT {
 		
 		int [] copyArray = new int[array.length];
 		copyArray = array;
-	//	int counter = 0;
+		int counter = 0;
 		
 		for (int count = 0; count < copyArray.length; count++) {
 			
@@ -113,14 +113,14 @@ public class PROJECT {
 				
 					copyArray[count2] = copyArray[count];
 					copyArray[count] = temp;
-			//		counter++;
+					counter++;
 				
 				}
 			
 			}
 
 		}
-	//	System.out.println("Bubble: " + counter);
+		System.out.println("Bubble: " + counter);
 		
 		return copyArray;
 		
@@ -129,7 +129,7 @@ public class PROJECT {
 	public static int [] SelectionSort(int [] array) {
 			
 			int [] copyArray = array;
-		//	int counter = 0;
+			int counter = 0;
 			
 			for (int count = 0; count < copyArray.length; count++) {
 				
@@ -143,21 +143,18 @@ public class PROJECT {
 					}
 				}
 		
-				
 					if (count != min && min < copyArray.length ) {
 						int temp = copyArray[min];
 						copyArray[min] = copyArray[count];
 						copyArray[count] = temp;
-			//		counter++;
+					counter++;
 					}
-					
-				
+	
 				}
-		//	System.out.println("Sort: " + counter);
+			
+			System.out.println("Sort: " + counter);
 			return copyArray;
 			
 		}
-	
-	
 
 }

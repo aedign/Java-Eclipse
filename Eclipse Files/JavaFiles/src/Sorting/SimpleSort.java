@@ -39,33 +39,30 @@ public class SimpleSort {
 	
 	}
 	
-	public static int SelectionSort(int [] array) {
+	public static int SelectionSort(int [] array) { // Big O -> O(n^2)
 		
-		int counter = 0;
+		int counter = 0; // keeps track of number of swaps
 		
 		for (int count = 0; count < array.length - 1; count++) {
 			
-			int min = count;
+			// selects a value from the array and its used as the minimum
+			int min = count; // variable that keeps track of the 
+						     // index where the min value is located
 			
-			for (int count2 = count + 1; count2 < array.length; count2++) {
-				
-				if (array[count2] < array[count]) {
-					
-					min = count2;
-				}
-			}
+			for (int count2 = count + 1; count2 < array.length; count2++)
+				if (array[count2] < array[count]) // the inside loop checks the rest of the array to find the smallest item
+					min = count2;				  // every time a smaller item is found, the min is now equal to the index of that item
 	
-			
-				if (count != min && min < array.length ) {
-					int temp = array[min];
-					array[min] = array[count];
-					array[count] = temp;
-					counter++;
+				if (count != min && min < array.length ) { // checks that there is a new min and that it is 
+					int temp = array[min];				// within the bounds of the array
+					array[min] = array[count];			// If the previous conditions are met, the value at index min
+					array[count] = temp;				// is swapped and placed in a new sorted location
+					counter++;								
 				}
 			
 			}
 		
-		return counter;
+		return counter; // numbers of swaps done is returned
 	}
 	
 	public static int InsertionSort (int [] array) {
