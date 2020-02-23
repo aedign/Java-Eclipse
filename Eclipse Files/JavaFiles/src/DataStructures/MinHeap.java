@@ -144,9 +144,9 @@ public class MinHeap {
      minHeap.insert(100); 
      minHeap.insert(840); 
      minHeap.insert(190); 
-     minHeap.insert(1); 
+     minHeap.insert(2); 
 
-    minHeap.minHeap(); 
+    //minHeap.minHeap(); 
 
      minHeap.print(); 
      System.out.println("The Min val is " + minHeap.remove()); 

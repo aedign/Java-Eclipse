@@ -47,7 +47,7 @@ public class heapSort {
 	
 	public static void main(String [] args) {
 		
-		int [] array = {4, 1000, 44, 500, 3,1,0,0,1,2,3,5,7,8,90,55,4};
+		int [] array = {4, 1000, 44, 500, 3,1,0,0,1,2,3,5,7,8,90,56};
 		
 		printArray(array);
 		

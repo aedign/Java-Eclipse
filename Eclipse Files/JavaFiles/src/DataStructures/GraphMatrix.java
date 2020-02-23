@@ -16,7 +16,7 @@ public class GraphMatrix<T> {
 	
 	void addEdge(int source, int destination) { // directed graph
 		
-		if(info.get(source) == null || info.get(destination) == null)
+		if(!info.containsKey(source) || !info.containsKey(destination))
 			return;
 		
 		matrix[source][destination] = 1;
@@ -24,11 +24,35 @@ public class GraphMatrix<T> {
 	
 	void addVertex(int vertex, T description){
 		
-		if(verticesCount >= matrix.length) {
+		if(verticesCount >= matrix.length)
 			return;
-		}
+		
 		info.put(vertex, description);
 		verticesCount++;
+		
+	}
+	
+	void removeEdge(int source, int destination) {
+		
+		if(!info.containsKey(source) || !info.containsKey(destination))
+			return;
+		
+		matrix[source][destination] = 0;
+	}
+	
+	void removeVertex(int vertex){
+		
+		if(!info.containsKey(vertex))
+			return;
+		
+		for(int i = 0; i < matrix.length; i++)
+			matrix[vertex][i] = -1;
+		
+		for(int i = 0; i < matrix.length; i++)
+			matrix[i][vertex] = -1;
+		
+		info.remove(vertex);
+		verticesCount--;
 		
 	}
 	
@@ -59,7 +83,7 @@ public class GraphMatrix<T> {
 	
 	void depthFirst(int start) {
 		
-		if(info.get(start) == null)
+		if(!info.containsKey(start))
 			return;
 		
 		boolean visited [] = new boolean [matrix.length];
@@ -75,7 +99,7 @@ public class GraphMatrix<T> {
 		
 		visited[start] = true;
 		
-		System.out.println("Processing: " + start);
+		System.out.println("Processing: " + start + " - Info: " + info.get(start));
 		
 		while(it.hasNext()) {
 				int i = it.next();
@@ -86,7 +110,7 @@ public class GraphMatrix<T> {
 	
 	void BFSearch(int start) {
 		
-		if(info.get(start) == null)
+		if(!info.containsKey(start))
 			return;
 		
 		Queue<Integer> q = new LinkedList<>();
@@ -97,7 +121,7 @@ public class GraphMatrix<T> {
 		q.add(start);
 		
 		do {
-			System.out.println("Processing: " + q.peek());
+			System.out.println("Processing: " + q.peek() + " - Info: " + info.get(q.peek()));
 			Vector<Integer> vertexNeighbors = getVertexNeighbors(q.peek());
 			Iterator<Integer> it = vertexNeighbors.iterator();
 			q.remove();
@@ -142,7 +166,20 @@ public class GraphMatrix<T> {
 		
 		gm.print();
 		System.out.println();
-		gm.BFSearch(0);
+		gm.BFSearch(4);
+		System.out.println();
+		gm.depthFirst(1);
+		System.out.println();
+		gm.removeEdge(1, 8);
+		gm.depthFirst(1);
+		System.out.println();
+		gm.removeVertex(1);
+		gm.depthFirst(1);
+		gm.depthFirst(2);
+		System.out.println();
+		gm.BFSearch(4);
+		System.out.println();
+		gm.print();
 		
 	}
 	

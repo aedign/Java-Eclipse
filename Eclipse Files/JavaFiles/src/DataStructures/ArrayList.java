@@ -3,70 +3,90 @@ package DataStructures;
 
 import java.util.Scanner;
 
-public class ArrayList {
+public class ArrayList<T> {
 	
-	int [] ClassArray;
+	private final int DEFAULT_CAPACITY = 10;
+	private T[] array;
+	private int size;
+	public int used;
+	private int currentIndex;
 	
-	
-	ArrayList(){
+	@SuppressWarnings("unchecked")
+	public ArrayList(){
 		
-		ClassArray = new int [10];
-		
+		this.array = (T[]) new Object [DEFAULT_CAPACITY];
+		this.size = DEFAULT_CAPACITY;
+		this.currentIndex = 0;	
+		this.used = 0;
 	}
 	
-	ArrayList(int size){
+	@SuppressWarnings("unchecked")
+	private void resize() {
+		T[] newArray = (T[]) new Object [size*2];
 		
-		ClassArray = new int[size];
-		
-	}
+		for(int i = 0; i < size-1; i++) {
+			newArray[i] = array[i];
+			currentIndex = i;
+		}
 
+		currentIndex++;
+		used = currentIndex;
+		array = newArray;
+		size = size * 2;
+	}
+	
+	public void add(T value) {
+		if(currentIndex == size) {
+			resize();
+		}
+		array[currentIndex++] = value;
+		used++;
+	}
+	
+	public void remove(T value) {
+		for(int i = 0; i < size-1; i++) {
+			if(array[i] == value) {
+				array[i] = null;
+				return;
+			}
+		}
+	}
+	
+	public String toString() {
+		String result = "[";
+		for(T item : array) {
+			if(item != null) {
+			result += item + ", ";
+			}
+		}
+		return result + "]";
+	}
 	
 	public static void main(String[] args) {
-
 		
+		ArrayList<Integer> al = new ArrayList<Integer>();
 		
-		Scanner scan = new Scanner(System.in);
-		
-		
-		System.out.println("Insert the length of the Array list:");
-		int length = scan.nextInt();
-		
-		System.out.println("Enter the values of the Array list:");
-		
-		ArrayList list1 = new ArrayList(length); // Not an array, a class object with an array inside
-		
-		int sum=0;
-		
-		for (int count= 0; count < length; count++) {
-			
-			list1.add(scan.nextInt());
-			sum += list1.getElementIndex(count);
-		}
-		
-		System.out.println( "Sum of values in the list: " + sum);
-		scan.close();
-		
-
+		al.add(1);
+		al.add(2);
+		al.add(3);
+		al.add(4);
+		al.add(3);
+		al.add(5);
+		al.add(6);
+		al.add(7);
+		al.add(8);
+		al.add(9);
+		al.add(10);
+		al.add(11);
+		al.add(12);
+		al.add(13);
+		al.add(14);
+		al.add(15);
+		System.out.println(al);
+		al.remove(3);
+		System.out.println(al);
 	}
 	
-	public void add(int num){
-		
-		int i =0;
-		
-		while(ClassArray[i] != 0) {
-			
-			i++;
-		}
-		
-		ClassArray[i] = num;
-		
-	}
 	
-	public int getElementIndex(int index) {
-		
-		return ClassArray[index];
-	}
-
 	
-
 }

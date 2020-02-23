@@ -22,11 +22,11 @@ public class hashTable {
 			used++;
 		}
 		else { // if the location at the hash was not free, it creates a second hash
-			int hash2 = hash1 % arraySize;
+			int hash2 = (hash1 * 2) % 100;
 			// if the location at the sum of the hashes is empty or is not equal to the key,
 			// then the key is added
-			if (array[hash1 + hash2] !=0  || array[hash1 + hash2] !=key)
-				array[hash1 + hash2] = key;
+			if (array[hash2] ==0)
+				array[hash2] = key;
 				used++;
 		}
 			
@@ -89,6 +89,9 @@ public class hashTable {
 		ht.put(9);
 		ht.put(8);
 		ht.put(8);
+		ht.put(99);
+		ht.put(99);
+		ht.put(99);
 		
 		ht.printTable();
 		

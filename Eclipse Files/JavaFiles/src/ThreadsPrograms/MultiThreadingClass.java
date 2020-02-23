@@ -9,7 +9,7 @@ public class MultiThreadingClass {
 	
 	public void run(int [] arrayName, int start, int stop, int num) {
 		
-		try {
+
 			
 			for (int count = start; count < stop; count++) { 
 				
@@ -19,14 +19,7 @@ public class MultiThreadingClass {
 			}
 			
 			System.out.println(num + " is running");
-			
-		}
-		
-		catch (Exception e) {
-			
-			System.out.println("Exception caught");
-		}
-		
+					
 	}
 	
 	public void Add() {
